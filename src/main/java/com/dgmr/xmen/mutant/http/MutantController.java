@@ -43,9 +43,7 @@ public class MutantController {
 		map.put("count_human_dna", 0L);
 		
 		if(stats == null)
-			return ResponseEntity
-				.status(HttpStatus.PRECONDITION_FAILED)
-				.body(new ObjectMapper().readTree("{\"count_mutant_dna\":0, \"count_human_dna\":0: \"ratio\":0}"));
+			return ResponseEntity.ok(new ObjectMapper().readTree("{\"count_mutant_dna\":0, \"count_human_dna\":0: \"ratio\":0}"));
 		else {
 			for (StatsTo s:stats) {
 				if(s.getFlMutant())
@@ -57,8 +55,7 @@ public class MutantController {
 		Float ratio = (map.get("count_human_dna") == 0L)?-1L:(float) map.get("count_mutant_dna") / map.get("count_human_dna");
 		
 			return ResponseEntity
-					.status(HttpStatus.PRECONDITION_FAILED)
-					.body(new ObjectMapper().readTree(
+					.ok(new ObjectMapper().readTree(
 							String.format(
 									"{\"count_mutant_dna\":%d , \"count_human_dna\":%d, \"ratio\": %s }", 
 									map.get("count_mutant_dna"), 
