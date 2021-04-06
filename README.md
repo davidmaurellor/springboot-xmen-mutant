@@ -81,6 +81,21 @@ mvn package
 java -jar target/springboot-xmen-mutant-0.0.1-SNAPSHOT.jar
 ```
 
+5. Acceder a la URL
+```
+METODO GET:
+http://localhost:8091/stats
+```
+
+```
+METODO POST con BODY:
+http://localhost:8091/mutant/
+
+{
+"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
+}
+```
+
 ## Demo
 
 Actualmente se encuentra disponible el proyecto para test así:
