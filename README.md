@@ -65,7 +65,7 @@ DELIMITER ;
 git clone https://github.com/davidmaurellor/springboot-xmen-mutant
 ```
 
-3. Editar el archivo de propiedades: springboot-xmen-mutant/src/main/resources y cambiar los parámetros: {HOST}, {USER} y {PASSWORD}
+3. Editar el archivo de propiedades: springboot-xmen-mutant/src/main/resources/application.properties y cambiar los parámetros: {HOST}, {USER} y {PASSWORD}
 ```
 ...
 spring.datasource.url=jdbc:mysql://{HOST}/xmen?useSSL=false
@@ -80,4 +80,28 @@ cd springboot-xmen-mutant
 mvn package
 java -jar target/springboot-xmen-mutant-0.0.1-SNAPSHOT.jar
 ```
+
+## Demo
+
+Actualmente se encuentra disponible el proyecto para test así:
+
+1. Consulta vía GET de Estadísticas de DNA analizados de humanos:
+```
+http://ec2-52-24-72-9.us-west-2.compute.amazonaws.com:8080/stats
+```
+
+2. Analisis de DNA, invocando mediante POST la siguiente URL y en BODY enviar el JSON siguiente:
+* POST: 
+```
+http://ec2-52-24-72-9.us-west-2.compute.amazonaws.com:8080/mutant/
+```
+
+* BODY:
+```
+{
+"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
+}
+```
+
+
 
