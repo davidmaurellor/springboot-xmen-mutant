@@ -5,7 +5,6 @@ public class StatsTo {
 	private Boolean flMutant;
 	private Long total;
 	
-	
 	public StatsTo(Boolean flMutant, Long total ) {
 		this.flMutant = flMutant;
 		this.total = total;

@@ -24,3 +24,60 @@ String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
 En este caso el llamado a la función isMutant(dna) devuelve "true". 
 
 Desarrolla el algoritmo de la manera más eficiente posible.
+
+
+## Prerequisites
+
+* Java 11.
+* MySQL
+* git command line tool (https://help.github.com/articles/set-up-git)
+* Maven
+
+### Pasos:
+
+1. Creación de la base de datos, tabla y Trigger en MySQL
+```
+
+create database xmen;
+
+CREATE TABLE `tb_analisis` (
+  `id_analisis` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ds_dna_code` varchar(40) DEFAULT NULL,
+  `ds_dna` mediumtext,
+  `fl_mutant` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id_analisis`),
+  UNIQUE KEY `unq_code` (`ds_dna_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+DELIMITER $$
+USE `xmen`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `xmen`.`tb_analisis_BEFORE_INSERT` BEFORE INSERT ON `tb_analisis` FOR EACH ROW
+BEGIN
+	SET NEW.ds_dna_code = SHA1(NEW.ds_dna);
+END$$
+DELIMITER ;
+
+```
+
+2. Descargar el proyecto Git con la  linea de comandos:
+```
+git clone https://github.com/davidmaurellor/springboot-xmen-mutant
+```
+
+3. Editar el archivo de propiedades: springboot-xmen-mutant/src/main/resources y cambiar los parámetros: {HOST}, {USER} y {PASSWORD}
+```
+...
+spring.datasource.url=jdbc:mysql://{HOST}/xmen?useSSL=false
+spring.datasource.username={USER}
+spring.datasource.password={PASSWORD}
+...
+```
+
+4. Ejecutar el proyecto
+```
+cd springboot-xmen-mutant
+mvn package
+java -jar target/springboot-xmen-mutant-0.0.1-SNAPSHOT.jar
+```
+
